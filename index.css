@@ -1,51 +1,172 @@
-:root{
-    --text-color: hsl(234, 12%, 24%);
+:root {
+    --title-color: hsl(232, 12%, 24%);
+    --text-color: hsla(234, 12%, 34%, .5);
     --background-color: hsl(0, 0%, 98%);
+    --space-s: 1rem;
+    --space-m: 2rem;
+    --space-l: 4rem;
+    --radius-base: 8px;
+    --shadow-base: 0 15px 30px -11px hsla(213, 47%, 67%, 0.5);
+    --color-surface: white;
 
+    --color-red: hsl(0, 78%, 62%);      /* Team Builder */
+    --color-cyan: hsl(180, 62%, 55%);    /* Supervisor */
+    --color-orange: hsl(34, 97%, 64%);   /* Karma */
+    --color-blue: hsl(212, 86%, 64%);    /* Calculator */
 }
 
-*{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;  /* Changed from height to min-height */
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: var(--title-color);
 }
 
-h1{
+h1 {
     font-size: 2.25rem;
     font-weight: 200;
+    letter-spacing: 0.25px;
 }
 
 strong {
     font-weight: 600;
 }
 
-h2{
+h2 {
     font-size: 1rem;
     font-weight: 400;
+    max-width: 55ch;
+    line-height: 25px;
+    color: var(--text-color);
 }
 
-.class-grid{
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+p {
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.09px;
+    line-height: 23px;
+    color: var(--text-color);
+}
+
+/* COMPOSITION */
+.center-content {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    text-align: center;  /* Add this for centered text */
+    padding-bottom: var(--space-l);
+}
+  
+.cluster {
+    display: flex;
     flex-wrap: wrap;
-    max-height: 530px;
+    gap: var(--space-s);
+    justify-content: center;
+    align-items: center;
+    width: 100%;  
 }
 
-.card{
-    height: 250px;
+.card {
+    position: relative;
+    background: var(--color-surface);
+    padding: var(--space-m);
+    border-radius: var(--radius-base);
+    box-shadow: var(--shadow-base);
     width: 350px;
-    display: block;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
     flex-direction: column;
-    border-radius: 8px;
-    margin-top: 30px;
-    box-shadow: 0 15 30 -11 hsla(213, 47%, 67%, .5);
+    justify-content: space-between;
 }
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.card[data-type="supervisor"]::before {
+    background: var(--color-cyan);
+}
+
+.card[data-type="team-builder"]::before {
+    background: var(--color-red);
+}
+
+.card[data-type="karma"]::before {
+    background: var(--color-orange);
+}
+
+.card[data-type="calculator"]::before {
+    background: var(--color-blue);
+}
+
+.cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+@media (min-width: 1080px) {
+    .cluster {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, auto);
+        gap: var(--space-s);
+    }
+
+    .card:nth-child(1) { /* Supervisor */
+        grid-column: 1;
+        grid-row: 2 / 4;
+    }
+
+    .card:nth-child(2) { /* Team Builder */
+        grid-column: 2;
+        grid-row: 1 / 3;
+    }
+
+    .card:nth-child(3) { /* Calculator */
+        grid-column: 3;
+        grid-row: 2 / 4;
+    }
+
+    .card:nth-child(4) { /* Karma */
+        grid-column: 2;
+        grid-row: 3 / 5;
+    }
+}
+
+.card img {
+    align-self: flex-end;
+}
+
+
